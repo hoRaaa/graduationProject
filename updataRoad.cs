@@ -8,7 +8,7 @@ public class updataRoad : MonoBehaviour
     public float generatePoint;//生成点
     public float startPoint;//起点
     public float endPoint;//终点，删除点
-    public GameObject whereRoad = GameObject.Find("roadScene");//道路父物体
+    public GameObject whereRoad;//道路父物体
     public GameObject road;
 
     public void setData()//获取数值
@@ -49,8 +49,9 @@ public class updataRoad : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
+        whereRoad = GameObject.Find("roadScene");
         setData();
     }
 
