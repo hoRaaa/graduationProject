@@ -35,7 +35,8 @@ public class controlBoard : MonoBehaviour
         {
             speed += acceleration;
         }
-        GameObject.Find("roadScene").transform.Translate(0, 0, speed * Time.deltaTime);
+        GameObject.Find("Rround-01").transform.Translate(0, 0, speed * Time.deltaTime);
+        GameObject.Find("Rround-02").transform.Translate(0, 0, speed * Time.deltaTime);
     }
 
     public void offset()//滑板偏移，转向
