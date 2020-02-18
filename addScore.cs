@@ -11,11 +11,6 @@ public class addScore : MonoBehaviour
         data = GameObject.Find("allData").GetComponent<allData>();
     }
 
-    void Update()
-    {
-        this.transform.Rotate(0, 0.1f * Time.deltaTime, 0);
-    }
-
     public void OnTriggerEnter(Collider other)
     {
         GameObject.Find("playingUI").GetComponent<updataUI>().score += data.addScore;

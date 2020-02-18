@@ -5,11 +5,9 @@ using UnityEngine;
 public class resetRoad : MonoBehaviour
 {
     public allData end;
-    public float roadScene;
     void Awake()
     {
         end = GameObject.Find("allData").GetComponent<allData>();
-        roadScene = GameObject.Find("roadScene").transform.position.z;
     }
     void Update()
     {

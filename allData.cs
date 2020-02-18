@@ -25,7 +25,7 @@ public class allData : MonoBehaviour
 
     //生成能量体和障碍物的位置
     public float[] X = { 50, 25, 0, -25, -50 };
-    public float spacing = 60;//刷新间距
+    public float spacing = 100;//刷新间距
 
     //边界
     public float Rboundary = -55;//右边界
