@@ -19,7 +19,8 @@ public class overUI : MonoBehaviour
     {
         score = GameObject.Find("playingUI").GetComponent<updataUI>().score;
         txtScore.text = "" + score;
-        time.text = "" + Time.time;
+        float timetxt = Time.time;
+        time.text = "" + timetxt;
     }
 
     public void again()

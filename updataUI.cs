@@ -47,7 +47,7 @@ public class updataUI : MonoBehaviour
     public void updataHP()//刷新生命值
     {
         txtHP.text = HP + " ";
-        if (HP == 0)
+        if (HP <= 0)
         {
             GetComponent<gameOver>().over();//游戏结束
         }

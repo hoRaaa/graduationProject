@@ -57,54 +57,115 @@ public class generateItems : MonoBehaviour
 
     public void generate00()//生成办法1
     {
-        
+        int k;
+        int j1, j2;
+        for (int i = 0; i < 10; i++)
+        {
+            k = Random.Range(0, 4);
+            generateEnergy(k, zAxis);
+            if(i==3||i==6||i==9)
+            {
+                j1 = Random.Range(0, 4);
+                j2 = Random.Range(0, 4);
+                while (j1 == k)
+                {
+                    j1 = Random.Range(0, 4);
+                }
+                while (j2 == k || j2 == j1)
+                {
+                    j2 = Random.Range(0, 4);
+                }
+                generateObstacles(j1, zAxis);
+                generateObstacles(j2, zAxis);
+            }
+            zAxis += spacing;
+        }    
     }
 
     public void generate01()//生成办法2
     {
-        for (int i = 0; i <= 4; i++)
+        int k;
+        k = Random.Range(0, 100);
+        if (k >= 50)
         {
-            generateEnergy(i, zAxis + spacing);
-            if (i == 4)
+            for (int i = 0; i < 4; i++)
             {
-                generateObstacles(0, zAxis);
-                generateObstacles(1, zAxis);
-                generateObstacles(2, zAxis);
-                generateObstacles(3, zAxis);
+                generateEnergy(i, zAxis);
+                zAxis += spacing;
             }
+            generateEnergy(4, zAxis);
+            generateObstacles(1, zAxis);
+            generateObstacles(2, zAxis);
+            generateObstacles(3, zAxis);
+        }
+        if (k < 50)
+        {
+            for (int i = 4; i > 0; i--)
+            {
+                generateEnergy(i, zAxis);
+                zAxis += spacing;
+            }
+            generateEnergy(0, zAxis);
+            generateObstacles(1, zAxis);
+            generateObstacles(2, zAxis);
+            generateObstacles(3, zAxis);
         }
     }
 
     public void generate02()//生成办法3
     {
-        for (int i = 4; i >= 0; i--)
+        int k;
+        k = Random.Range(0, 2);
+        switch (k)
         {
-            generateEnergy(i, zAxis + spacing);
-            if (i == 0)
-            {
-                generateObstacles(4, zAxis);
-                generateObstacles(3, zAxis);
-                generateObstacles(2, zAxis);
-                generateObstacles(1, zAxis);
-            }
+            case 0:
+                for (int i = 0; i < 10; i++)
+                {
+                    generateEnergy(0, zAxis);
+                    generateObstacles(1, zAxis);
+                    generateObstacles(2, zAxis);
+                    generateObstacles(3, zAxis);
+                    zAxis += spacing;
+                }  
+                break;
+            case 1:
+                for (int i = 0; i < 10; i++)
+                {
+                    generateEnergy(2, zAxis);
+                    generateObstacles(0, zAxis);
+                    generateObstacles(1, zAxis);
+                    generateObstacles(3, zAxis);
+                    generateObstacles(4, zAxis);
+                    zAxis += spacing;
+                }
+                break;
+            case 2:
+                for (int i = 0; i < 10; i++)
+                {
+                    generateEnergy(4, zAxis);
+                    generateObstacles(1, zAxis);
+                    generateObstacles(2, zAxis);
+                    generateObstacles(3, zAxis);
+                    zAxis += spacing;
+                }
+                break;
         }
     }
 
     public void doGenerate()//生成物件
     {
-        zAxis = findChild.getChild(this.transform, "aPoint").transform.position.z;
-        endPoint = 100000;//GameObject.Find("bPoint").transform.position.z;
         int k;
+        zAxis = findChild.getChild(this.transform, "aPoint").transform.position.z;
+        endPoint = findChild.getChild(this.transform, "bPoint").transform.position.z;
         while (zAxis < endPoint)
         {
             k = Random.Range(0, 1);
-             /*switch (i)
-             {
-                 case 1: generate00();break;
-                 case 2: generate01(); break;
-                 case 3: generate02(); break;
-             }*/
-            //generate01();
+            switch (k)
+            {
+                case 0:generate00();break;
+                case 1: generate01(); break;
+                case 2: generate02(); break;
+            }
         }
     }
 }

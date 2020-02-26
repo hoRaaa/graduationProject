@@ -8,6 +8,8 @@ public class gameOver : MonoBehaviour
     {
         GameObject.Find("overUI").GetComponent<overUI>().showUI();
         GameObject.Find("overUI").transform.position = new Vector3(0, 25, -50);
+        Destroy(GameObject.Find("Cuboid(Clone)"));
+        Destroy(GameObject.Find("obstacles(Clone)"));
         Time.timeScale = 0;
     }
 }
