@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// 敌人动画;定义需要播放的动画片段名称
+/// 定义需要播放的动画片段名称
 /// </summary>
 public class Animations : MonoBehaviour
 {
-    //右转动画
-    public string turnRight = "turnR";
-    //左转动画
-    public string turnLeft = "turnL";
-    //行为类
+    //登录动画
+    public string cameraRoate = "cameraRoate";
+    public string loginUI_UP = "loginUI_UP";
+    public string playUI_UP = "playUI_UP";
+
     public AnimationAction action;
     private void Awake()
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class allData : MonoBehaviour
 {
+
     //滑板数值
     public float maxSpeed = 800;//最高速度
     public float acceleration = 10;//加速度
