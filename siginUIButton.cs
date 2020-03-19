@@ -1,42 +1,34 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MySql.Data.MySqlClient;
+using Commons;
 
 public class siginUIButton : MonoBehaviour
 {
-    private string host = "localhost";
-    private string database = "game_data";
-    private string id = "root";
-    private string password = "root";
-    private string port = "3306";
-    private string pooling = "false";
-    private string charset = "utf8";
+    private Transform inputUserName;      //用户名输入框
+    private Transform inputUserPass;        //密码输入框
+    private Transform inputConfirmPass;  //确认密码输入框
+    private Text hintText;                         //提示框
 
-    private Transform inputUserName;
-    private Transform inputUserPass;
-    private Transform inputConfirmPass;
-    private string userName;
-    private string userPass;
-    private string confirmPass;
-    private databaseLinks sql;
+    private string userName;                   //用户名
+    private string userPass;                     //密码
+    private string confirmPass;               //确认密码
+    private string reply;                          //php返回值
 
-    private int pass;
+    private string url_sigin = "http://localhost:8081/gameServer/userInsert.php"; //php脚本
 
-    private Animator anim;
-    private string animInt = "buttonInt";
+    private Animator anim;                     //转场动画
+    private string animInt = "buttonInt";  //动画器变量
 
+    //初始化获取组件
     void Start()
     {
         inputUserName = findChild.getChild(this.transform, "signName");
         inputUserPass = findChild.getChild(this.transform, "signPass");
         inputConfirmPass = findChild.getChild(this.transform, "confirmPass");
-        sql = new databaseLinks(host, database, id, password, port, pooling, charset);
-        sql.openSQL();
+        hintText = findChild.getChild(this.transform, "hint").GetComponent<Text>();
         anim = GameObject.Find("scene").GetComponent<Animator>();
-
     }
     
     //按下确定按钮
@@ -47,7 +39,8 @@ public class siginUIButton : MonoBehaviour
         confirmPass = inputConfirmPass.GetComponent<InputField>().text;
         if (userPass == confirmPass)
         {
-            sql.addUser(userName, userPass);
+
+            StartCoroutine(sigin(userName,userPass));
         }
     }
 
@@ -55,5 +48,27 @@ public class siginUIButton : MonoBehaviour
     public void returnButton()
     {
         anim.SetInteger(animInt, 3);
+    }
+
+    //注册
+    private IEnumerator sigin(string userName, string userPass)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("addUserName",userName);
+        form.AddField("addPass",userPass);
+
+        WWW www = new WWW(url_sigin, form);
+        yield return www;
+        reply = www.text;
+        if (reply == "user_exists")
+        {
+            hintText.text = "用户名已存在";
+        }
+        if (reply == "success")
+        {
+            hintText.text = "注册成功";
+            yield return new WaitForSeconds(1);
+            hintText.text = "";
+        }
     }
 }

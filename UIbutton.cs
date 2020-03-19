@@ -14,15 +14,16 @@ public class UIbutton : MonoBehaviour
     {
         Application.Quit();
     }
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.W))//开始游戏
-        {
-            SceneManager.LoadScene("gameScene");
-        }
-        if (Input.GetKey(KeyCode.S))//退出游戏
-        {
-            Application.Quit();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKey(KeyCode.W))//开始游戏
+    //    {
+    //        SceneManager.LoadScene("gameScene");
+    //    }
+    //    if (Input.GetKey(KeyCode.S))//退出游戏
+    //    {
+    //        PlayerPrefs.DeleteAll();
+    //        Application.Quit();
+    //    }
+    //}
 }
