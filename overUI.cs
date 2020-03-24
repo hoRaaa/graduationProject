@@ -6,31 +6,47 @@ using UnityEngine.SceneManagement;
 
 public class overUI : MonoBehaviour
 {
-    public Text txtScore;
-    public Text time;
+    string URL = "http://localhost:8081/gameServer/uploadScore.php";
+    public string[] usersData;
+    public string[] usersName;
+    public string[] usersScore;
+
+    public Text scoreTxt;
+    public Text topNameTxt;
+    public Text topScoreTxt;
     public int score;
-    void Start()
-    {
-        txtScore = GameObject.Find("lastScore").GetComponent<Text>();
-        time = GameObject.Find("lastTime").GetComponent<Text>();
-    }
 
     public void showUI()//显示得分，游戏时长
     {
+        scoreTxt = findChild.getChild(this.transform, "lastScore").GetComponent<Text>();
+        topNameTxt = findChild.getChild(this.transform, "TOPname").GetComponent<Text>();
+        topScoreTxt = findChild.getChild(this.transform, "TOPscore").GetComponent<Text>();
         score = GameObject.Find("playingUI").GetComponent<updataUI>().score;
-        txtScore.text = "" + score;
-        float timetxt = Time.time;
-        time.text = "" + timetxt;
+        scoreTxt.text = scoreTxt.text + score;
+        StartCoroutine(getTOP());
     }
 
     public void again()
     {
-        SceneManager.LoadScene("gameScene");
+        SceneManager.LoadScene("PlayScene");
         Time.timeScale=1;
     }
 
     public void menu()
     {
-        SceneManager.LoadScene("startScene");
+        SceneManager.LoadScene("StartScene");
     }
+
+    private IEnumerator getTOP()
+    {
+        WWW users = new WWW(URL);
+        yield return users;
+        usersData = users.text.Split(';');
+        for (int i = 0; i < usersData.Length - 1; i = i + 2)
+        {
+            topNameTxt.text = topNameTxt.text + usersData[i] + "\n\n";
+            topScoreTxt.text = topScoreTxt.text + usersData[i + 1] + "\n\n";
+        }
+    }
+
 }
